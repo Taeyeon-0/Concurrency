@@ -1,11 +1,11 @@
 #include <iostream>
 #include <thread>
 #include <string>
-#include <memory> // for std::unique_ptr
-#include <functional> // for std::ref
+#include <memory>
+#include <functional>
 
 // 场景 1: 避免隐式转换带来的悬空指针
-void print_string(int id, const std::string& s) {
+void print_string(int id, const std::string &s) {
     std::cout << "[Thread " << id << "] String content: " << s << std::endl;
 }
 
@@ -53,7 +53,7 @@ int main() {
     std::thread t3(&Worker::do_work, &w, 2);
     
     // --- 4. 移动语义传递 ---
-    std::unique_ptr<BigData> p = std::make_unique<BigData>(999);
+    auto p = std::make_unique<BigData>(999);
     // std::move 将所有权转移给线程，main 函数中的 p 变为 nullptr
     std::thread t4(process_unique_ptr, std::move(p));
 
